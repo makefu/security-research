@@ -1,14 +1,15 @@
-# Inclusion of a user provided PHP file in ownCloud 4.5
 
-Report URL: http://pigstarter.krebsco.de/report/2012-11-04_ownedcloud.txt
-Author: Felix Richter (root@euer.krebsco.de)
+* Title: Inclusion of a user provided PHP file in ownCloud 4.5
+* Publish Date: 2019-09-26
+* Author: Felix Richter
+* Contact:  root@euer.krebsco.de
+* CVE-ID: CVE-2013-5665
+* Report Version: 2.1
+* Report URL: http://pigstarter.krebsco.de/report/2012-11-04_ownedcloud.txt
+* State: Patched by Vendor
+* Vendor Report: https://owncloud.org/security/advisories/code-execution-lib-migrate-php/
+* Vulnerable: OwnCloud 4.0.10 - 4.5.1
 
-# Versions
-## Affected Versions
-    latest owncloud 4.5 (4.5.1)
-
-## not affected
-    latest owncloud 4.0 (4.0.8)
 
 # Vulnerability Description
 A remote authenticated user without admin rights can run arbitrary code by
@@ -55,3 +56,11 @@ configuration is included in the archive and is accessible after exploitation at
 http:://$webroot/payload.php .
 
 Payload URL: http://pigstarter.krebsco.de/payload/ownedcloud.zip
+
+# Timeline
+
+2012-11-04 - First Contact with OwnCloud Security Team
+2012-11-05 - Sent Report
+2012-11-12 - Request Status Update
+2012-11-20 - Published Report on OwnCloud Website
+2019-09-26 - Publish Report on pigstarter.krebsco.de
