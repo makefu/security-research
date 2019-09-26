@@ -1,7 +1,7 @@
 # Inclusion of a user provided PHP file in ownCloud 4.5
 
-# Author
-Felix Richter (root@euer.krebsco.de)
+Report URL: http://pigstarter.krebsco.de/report/2012-11-04_ownedcloud.txt
+Author: Felix Richter (root@euer.krebsco.de)
 
 # Versions
 ## Affected Versions
